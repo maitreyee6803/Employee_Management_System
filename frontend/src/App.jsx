@@ -19,7 +19,7 @@ function App() {
   });
 
   const getEmployees = async () => {
-    try {
+    try {            
       const response = await axios.get(`${API}/employees`);
       setEmployees(response.data);
     } catch (error) {
@@ -106,12 +106,82 @@ function App() {
 });
 
   return (
-    <div className="container">
+    <>
+  <section className="landing">
+    <div className="overlay"></div>
+
+    <div className="glass-card">
+  <h1>Employee Connect</h1>
+  <p>Smart Employee Management System</p>
+
+  <button
+    className="hero-btn"
+    onClick={() =>
+      document
+        .getElementById("dashboard")
+        .scrollIntoView({ behavior: "smooth" })
+    }
+  >
+    Explore Dashboard
+  </button>
+</div>
+  </section>
+
+  
+
+<div id="dashboard" className="container">
       <h1 className="title">Employee Dashboard</h1>
+      <div
+  style={{
+    display: "flex",
+    gap: "15px",
+    marginBottom: "25px",
+    alignItems: "center",
+  }}
+>
+  <input
+  placeholder="Search Employee..."
+  value={search}
+  onChange={(e) => setSearch(e.target.value)}
+  style={{
+    flex: 1,
+    height: "50px",
+  }}
+/>
+
+  <select
+  value={departmentFilter}
+  onChange={(e) => setDepartmentFilter(e.target.value)}
+  style={{
+    width: "180px",
+    height: "50px",
+    flexShrink: 0,
+  }}
+>
+    <option>All</option>
+    <option>IT</option>
+    <option>HR</option>
+    <option>Finance</option>
+    <option>Marketing</option>
+    <option>Sales</option>
+    <option>Operations</option>
+    <option>Support</option>
+    <option>Administration</option>
+  </select>
+</div>
 
       <h2>{editingId ? "Update Employee" : "Add Employee"}</h2>
 
-      <form onSubmit={saveEmployee}>
+      <form
+  onSubmit={saveEmployee}
+  style={{
+    display: "flex",
+    gap: "15px",
+    alignItems: "center",
+    flexWrap: "nowrap",
+    marginBottom: "25px",
+  }}
+>
         <input
           name="first_name"
           placeholder="First Name"
@@ -152,9 +222,16 @@ function App() {
           required
         />
 
-        <button type="submit">
-          {editingId ? "Update Employee" : "Add Employee"}
-        </button>
+        <button
+  type="submit"
+  style={{
+    width: "220px",
+    height: "50px",
+    whiteSpace: "nowrap",
+  }}
+>
+  {editingId ? "Update Employee" : "Add Employee"}
+</button>
 
         {editingId && (
           <button
@@ -169,35 +246,7 @@ function App() {
 
       <br />
 
-      <div
-  style={{
-    display: "flex",
-    gap: "15px",
-    marginBottom: "20px",
-    alignItems: "center",
-  }}
->
-  <input
-    placeholder="Search Employee..."
-    value={search}
-    onChange={(e) => setSearch(e.target.value)}
-  />
-
-  <select
-    value={departmentFilter}
-    onChange={(e) => setDepartmentFilter(e.target.value)}
-  >
-    <option>All</option>
-    <option>IT</option>
-    <option>HR</option>
-    <option>Finance</option>
-    <option>Marketing</option>
-    <option>Sales</option>
-    <option>Operations</option>
-    <option>Support</option>
-    <option>Administration</option>
-  </select>
-</div>
+      
 
       <h2>Employees</h2>
 
@@ -249,7 +298,8 @@ function App() {
         </tbody>
       </table>
     </div>
-  );
+</>
+);
 }
 
 export default App;
